@@ -10,11 +10,13 @@
 #include <cassert>
 #include <glob.h>
 
-#include <opencv2/core/core.hpp>
-#include <opencv2/highgui/highgui.hpp>
 #include <opencv2/opencv.hpp>
+//#include <opencv2/core/core.hpp>
+//#include <opencv2/highgui/highgui.hpp>
+//#include <opencv2/opencv.hpp>
 
-extern "C" {
+extern "C" 
+{
     #include <libavcodec/avcodec.h>
     #include <libswscale/swscale.h>
     #include <libavformat/avformat.h>
@@ -28,6 +30,18 @@ static const AVPixelFormat sourcePixelFormat = AV_PIX_FMT_BGR24;
 static const AVPixelFormat destPixelFormat = AV_PIX_FMT_YUV420P;
 static const AVCodecID destCodec = AV_CODEC_ID_H264;
 
+using namespace cv;
+
+enum
+{
+    // modes of the controlling registers (can be: auto, manual, auto single push, absolute Latter allowed with any other mode)
+    // every feature can have only one mode turned on at a time
+    CV_CAP_PROP_FRAME_WIDTH    =3,
+    CV_CAP_PROP_FRAME_HEIGHT   =4,
+    CV_CAP_PROP_FPS            =5,
+    CV_CAP_PROP_FOURCC         =6,
+    CV_CAP_PROP_FRAME_COUNT    =7,
+};
 
 int main(int argc, char** argv)
 {
